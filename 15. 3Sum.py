@@ -1,22 +1,20 @@
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        s = {}
-
+        
+        nums.sort()
+        answer = set()
+        
         for i in range(len(nums)):
-            s[nums[i]] = 0
+            if i > 0 and nums[i] == nums[i-1]:  # если i совпадает с i-1 - не проверяем
+                continue
+                
+            s = set()
+            for j in range(i + 1, len(nums)):
 
-
-
-        answer = []
-
-        for i in range(len(nums)):
-            for j in range(len(nums)):
-                if -1*(nums[i]+nums[j]) in s:
-                    if i != j and i != nums.index(-1*(nums[i]+nums[j])) and nums.index(-1*(nums[i]+nums[j])) != j:
-
-                        p = [nums[i], nums[j], -1*(nums[i]+nums[j])]
-                        p.sort()
-                        if p not in answer:
-                            answer.append(p)
-
-        return answer
+            
+                third = -nums[i] - nums[j]
+                if third in s:
+                    answer.add((nums[i], third, nums[j]))
+                s.add(nums[j])
+        
+        return [list(x) for x in answer]
